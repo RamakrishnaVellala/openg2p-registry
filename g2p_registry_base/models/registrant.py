@@ -3,7 +3,7 @@ import logging
 from datetime import date
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError, _
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -78,11 +78,9 @@ class G2PRegistrant(models.Model):
     @api.constrains("registration_date")
     def _check_registration_date(self):
         for record in self:
-            if record.registrati_Tn_date > date.today():
-                error_message = _(
-                    "Registration date must be less than the current date."
-                )
+            if record.registration_date > date.today():
+                error_message = "Registration date must be less than the current date."
                 raise ValidationError(error_message)
             elif record.registration_date < record.birthdate:
-                error_message = _("Registration date must be less than the birth date.")
+                error_message = "Registration date must be less than the birth date."
                 raise ValidationError(error_message)
