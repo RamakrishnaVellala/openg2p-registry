@@ -18,7 +18,7 @@
                             nolabel="1"
                             colspan="4"
                         >
-                            <tree editable="top" default_order='status asc'>
+                            <tree editable="top" default_order='status asc,ended_date asc'>
                                 <button
                                     name="open_individual_form"
                                     type="object"
