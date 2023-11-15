@@ -1,8 +1,7 @@
 # Part of OpenG2P Registry. See LICENSE file for full copyright and licensing details.
 from random import randint
 
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 
 class G2PRegistrantTags(models.Model):
@@ -18,9 +17,17 @@ class G2PRegistrantTags(models.Model):
         default=True, help="Archive to hide the RegistrantTag without removing it."
     )
 
-    @api.constrains("name")
-    def _check_name(self):
-        for record in self:
-            if not record.name:
-                error_message = "Tag name should not empty."
-                raise ValidationError(error_message)
+    _sql_constraints = [
+        (
+            "name_unique",
+            "unique (name)",
+            "Name of the tags should be unique",
+        ),
+    ]
+
+    # @api.constrains("name")
+    # def _check_name(self):
+    #     for record in self:
+    #         if not record.name:
+    #             error_message = "Tag name should not empty."
+    #             raise ValidationError(error_message)
